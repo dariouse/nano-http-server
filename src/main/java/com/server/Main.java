@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     private static final int PORT = 8080;
-    private static final ExecutorService executor = Executors.newFixedThreadPool(10); // 최대 10개 동시 처리
+    private static final ExecutorService executor = Executors.newFixedThreadPool(10);
     private static final boolean nagle = false;
 
     public static void main(String[] args) throws IOException {
@@ -51,7 +51,7 @@ public class Main {
         if (!nagle) {
             System.out.println("nagle true");
             out.write("HTTP/1.1 200 OK\r\n".getBytes());
-            Thread.sleep(100); // 의도적으로 딜레이
+            Thread.sleep(100);
             out.write("Content-Type: text/plain\r\n".getBytes());
             Thread.sleep(100);
             out.write("Content-Length: 24\r\n".getBytes());
