@@ -5,8 +5,6 @@ import java.net.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class LowLevelServer {
     private static final int PORT = 8080;
     private static final ExecutorService executor = Executors.newFixedThreadPool(10);
@@ -15,7 +13,6 @@ public class LowLevelServer {
     public static void main(String[] args) throws IOException, InterruptedException {
         ServerSocket serverSocket = new ServerSocket(PORT);
 
-        Thread.sleep(100000000);
         System.out.println("HTTP 서버 시작됨: http://localhost:" + PORT);
         while (true) {
             try {

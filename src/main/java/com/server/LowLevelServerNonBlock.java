@@ -30,7 +30,7 @@ public class LowLevelServerNonBlock {
          */
         serverChannel.setOption(java.net.StandardSocketOptions.SO_REUSEADDR, false);
 
-        // blocking 모드로 accept 대기
+        // Non-blocking 모드로 accept 에서 할게 없으면 지나감
         serverChannel.configureBlocking(false);
 
         serverChannel.bind(new InetSocketAddress(PORT));
@@ -39,7 +39,7 @@ public class LowLevelServerNonBlock {
 
         while (true) {
             try {
-                SocketChannel clientChannel = serverChannel.accept(); // accept blocking
+                SocketChannel clientChannel = serverChannel.accept(); // accept Non-blocking
                 if (clientChannel == null) {
                     ThreadUtil.sleep(1500); // CPU 낭비 방지
                     System.out.println("Non Block Continue count: " + count++);
@@ -49,7 +49,7 @@ public class LowLevelServerNonBlock {
 
                 Socket clientSocket = clientChannel.socket();
                 clientSocket.setTcpNoDelay(nagle); // false 마지막으로 전송한 패킷에 대한 ACK가 도착하기 전까지, 새로운 작은 패킷은 보내지 않고 소켓 버퍼에 모아둔다.
-//                clientSocket.setSoLinger(true, 0); // true: 서버가 먼저 끊어도 TIME_WAIT 이 안남는다.
+                clientSocket.setSoLinger(true, 0); // true: 서버가 먼저 끊어도 TIME_WAIT 이 안남는다.
 
                 ThreadUtil.sleep(1000);
                 executor.submit(() -> {
